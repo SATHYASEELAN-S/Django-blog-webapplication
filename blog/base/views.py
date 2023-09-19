@@ -9,6 +9,10 @@ from base.models import blogpost, userdetail
 
 def home(request):
     Post=blogpost.objects.all()
+    
+    if request.method=="POST":
+        search=request.POST["search"]
+        Post=blogpost.objects.filter(title__icontains=search)
     context={"Post":Post}
     return render(request,'base/home.html',context)
 
