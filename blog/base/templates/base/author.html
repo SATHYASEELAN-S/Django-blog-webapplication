@@ -1,0 +1,121 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+{%block title%}
+    <title>Profile Page</title>
+
+{%endblock%}
+<style>
+    body {
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+    }
+
+    .content {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-container {
+        width: 700px;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header {
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    .profile-avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 3px solid #ffffff;
+        margin: 0 auto;
+    }
+
+    .profile-name {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .profile-username {
+        color: #555555;
+        font-size: 16px;
+    }
+
+    .profile-description {
+        font-size: 18px;
+        margin-top: 20px;
+    }
+
+    .profile-actions {
+        margin-top: 20px;
+    }
+
+    .btn-edit-profile {
+        font-size: 16px;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .profile-posts {
+        margin-top: 30px;
+    }
+
+    .post {
+        border: 1px solid #dcdcdc;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .post-content {
+        font-size: 16px;
+    }
+
+    .post-date {
+        color: #888888;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+    .post:hover {
+        transition: transform 0.3s ease-in-out;
+        transform: scale(1.09); /* Increase the size on hover */
+    }
+</style>
+
+<div class="content">
+    <div class="col-md-8 profile-container">
+        <div class="profile-header">
+            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-avatar">
+            <div class="profile-name">{{user.first_name}}</div>
+            <div class="profile-username">@{{user}}</div>{%for i in about%}
+            <div class="profile-description">
+                
+                {{i.about}}    
+              
+             </div> {%endfor%}
+            <h5 class="pt-3 text-muted">Posts</h5>
+{%for post in posts%}
+        <div class="profile-posts">
+        <a href="{%url 'postview' post.id%}"> 
+               <div class="post">
+                <div class="post-content">
+                   {{post.title}}
+                </div>
+                
+                <div class="post-date">Posted on {{post.created|date:"M d, Y" }}</div>
+            </div>
+        </a>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+
+{% block title %}
+    <title>Your Form</title>
+{% endblock %}
+
+{% block content1 %}
+<div class="container mt-5">
+    <h1 class="mb-4">Are you sure delete this post?</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+       
+        <a href="{{request.META.HTTP_REFERER}}"  class="btn btn-primary">Go Back</a>
+        <button type="submit" class="btn btn-primary">Delete</button>
+    </form>
+</div>
+{% endblock %}

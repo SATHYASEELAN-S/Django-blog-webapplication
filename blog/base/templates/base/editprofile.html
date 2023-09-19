@@ -1,0 +1,124 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+    {% block title %}
+        <title>Profile Page</title>
+    {% endblock %}
+
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .content {
+            min-height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-container {
+            width: 400px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-title {
+            font-size: 32px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .profile-label {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .profile-input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-back {
+            font-size: 16px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-back:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-save {
+            font-size: 16px;
+            background-color: #28a745;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn-save:hover {
+            background-color: #1d8633;
+        }
+    </style>
+
+    <div class="content">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="profile-container">
+                <h2 class="mb-4 profile-title">{{ request.user }}</h2>
+                {%for i  in messages%}
+                <label>{{i}}</label>
+                {%endfor%}
+                <label class="profile-label">Username:</label>
+                {{ form.username }}
+                <br>
+                <label class="profile-label">First Name:</label>
+                {{ form.first_name }}
+                <br>
+                <label class="profile-label">Last Name:</label>
+                {{ form.last_name }}
+                <br>
+                <label class="profile-label">Email:   </label>
+                {{ form.email }}
+<br>
+                <label class="profile-label">About:</label>
+                {{ aboutform.about }}
+                <label class="profile-label">Upload Your Profile Picture:</label>
+                {{ aboutform.profile }}
+                
+                <div class="btn-container">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-back">Go Back</a>
+                    <input type="submit" value="Save" class="btn btn-save">
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

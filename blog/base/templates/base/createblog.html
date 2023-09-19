@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+
+{% block title %}
+    <title>Create Blog Post</title>
+{% endblock %}
+
+{% block content1 %}
+<div class="container mt-5">
+    <h1 class="mb-4">Create a Blog Post</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="content" class="form-label">Content:</label>
+            <textarea class="form-control" id="content" name="content" rows="6" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Image:</label>
+            <input type="file" class="form-control" id="image" name="image" accept="image/*">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Blog Post</button>
+    </form>
+</div>
+{% endblock %}

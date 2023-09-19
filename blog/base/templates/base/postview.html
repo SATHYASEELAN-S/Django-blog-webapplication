@@ -1,0 +1,112 @@
+{%extends 'main.html'%}
+
+{%block content1%}
+
+<style>
+
+
+  .read-more-link {
+    font-size: 18px;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.read-more-link:hover {
+    text-decoration: underline;
+}
+</style>
+
+
+{%if view == "postview" %}
+  
+    <main class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="text-muted">Posts</h3>
+            </div>{%for post in posts%}
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h3 align="justify" class="" >{{post.title}}</h3>
+                <img src="{{post.img.url}}" class="img-fluid pt-2">
+                
+                <p align="justify" >{{post.content}} </p>
+                <a href="{%url 'authorpost' post.author.id %}" class="read-more-link text-center">See Other Post</a>
+              </li>
+              {%endfor%}
+              
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              About Post
+            </div>
+            <div class="card-body">
+              {%for post in posts%}
+              <p>Author: {{post.author}}</p>
+              <div class="">Posted on {{post.created|date:"M d Y"}} </div>
+              {%endfor%}
+
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+    </main>
+  {%else%}
+
+  <main class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-muted">Posts</h3>
+          </div>{%for post in posts%}
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <h3 align="justify" class="" >{{post.title}}</h3>
+              <img src="{{post.img.url}}" class="img-fluid pt-2">
+              
+              <p align="justify" >{{post.content}} </p>
+              <p class="text-dark pt-3">Post on {{post.created|date:"M d Y"}} </p>
+            </li>
+            {%endfor%}
+            
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">{%for i in about%}
+            <p>About Author</p>
+          </div>
+          <div class="card-body">
+          <p>Author: {{i.aboutuser.username}}</p>
+            <p>About: {{i}}</p><br>
+            {%endfor%}
+
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+  </main>
+
+  {%endif%}
+
+
+
+    <footer>
+      <div class="container">
+        <p class="text-center">Copyright &copy; 2023</p>
+      </div>
+    </footer>
+  </body>
+  
+  {%endblock%}

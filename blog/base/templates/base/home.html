@@ -1,0 +1,131 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block navbar %}
+<div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'profile' request.user.id %}">{{ request.user }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Signup</a>
+            </li>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'createblog' %}">Create Blog</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block title %}
+<title>Blog Home</title>
+{% endblock %}
+
+{% block content1 %}
+<style>
+    .content {
+        padding: 20px; /* Remove background color */
+        border-radius: 10px;
+        margin: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .blog-post {
+        width: 100%;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        display: flex;
+        overflow: hidden;
+    }
+
+    .blog-post:hover {
+        transform: scale(1.02); /* Slightly increase size on hover */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .blog-post-content {
+        padding: 20px;
+    }
+
+    .blog-post h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .blog-post p {
+        font-size: 16px;
+        text-align: justify;
+    }
+
+    .blog-post-meta {
+        margin-left: 20px;
+        font-size: 14px;
+        color: #888888;
+    }
+
+    .blog-post img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .read-more-link {
+        font-size: 18px;
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .read-more-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container">
+    <h2 class="con pt-5">Blog Posts</h2>
+    {% for i in Post %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="content pt-5">
+                <div class="blog-post">
+                    <a href=""><img src="{{ i.img.url }}" class="img-fluid" alt="..."></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="pt-5 blog-post-content">
+                <p>@<a href="{% url 'profile' i.author.id %}">{{ i.author }}</a> {{ i.created|date:"M d Y" }} ago</p>
+                <h2 class="card-title">{{ i.title }}</h2>
+                <p>{{ i.content }}</p>
+                <a href="{% url 'postview' i.id %}" class="read-more-link">Read more</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

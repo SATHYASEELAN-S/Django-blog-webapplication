@@ -1,0 +1,104 @@
+{%extends 'main.html'%}
+
+{%block content1%}
+
+
+    {%block title%}
+    <title>Registration Page</title>
+    {%endblock%}
+
+
+    {%block style%}
+    <style>
+        
+        .content {
+            min-height: 93vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+        }
+
+        .form-container {
+            width: 500px;
+        
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-label {
+            font-size: 16px;
+        }
+
+        .form-control {
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        .btn-register {
+            font-size: 18px;
+            font-weight: normal;
+        }
+        .btn-login {
+            font-size: 16px;
+          }
+    </style>
+    {%endblock%}
+    
+
+
+<div class="container">
+    <div class="content">
+        <div class="col-md-6 form-container">
+            <h2 class="mb-4 form-title">Create an Account</h2>
+            <form method="post" action="">
+                {%csrf_token%}
+                <div class="mb-3">
+                    {%for message in messages%}
+                    <p>{{message}}</p>
+                    {%endfor%}
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter your user name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstname" placeholder="Enter your first name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastname" placeholder="Enter your last name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter confirm password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-register">Signup</button>
+                <p class="mt-3">
+                    already signup?
+                    <a class="btn btn-light btn-login" href="{%url 'login' %}"
+                      >login</a
+                    >
+                  </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

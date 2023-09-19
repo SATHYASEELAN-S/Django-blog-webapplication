@@ -1,0 +1,77 @@
+{%extends 'main.html'%} {%block title%}
+<title>Login Page</title>
+{%endblock%} {%block content1%}
+
+<style>
+  .content {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    /* Background color for the login page */
+  }
+
+  .form-container {
+    width: 500px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .form-label {
+    font-size: 16px;
+  }
+
+  .form-control {
+    font-size: 16px;
+    border-radius: 5px;
+  }
+
+  .btn-login {
+    font-size: 18px;
+    font-weight: normal;
+  }
+
+  .btn-register {
+    font-size: 16px;
+  }
+</style>
+
+<div class="container">
+  <div class="content">
+    <div class="col-md-6 form-container">
+      <h2 class="mb-4 form-title">Login</h2>
+      {%for message in messages%}
+      {{message}}
+      {%endfor%}
+      <form method="post" action="">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username"
+            required />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password"
+            required />
+        </div>
+        <button type="submit" class="btn btn-primary btn-login">Login</button>
+        <p class="mt-3">
+          Haven't signed up yet?
+          <a class="btn btn-light btn-register" href="{%url 'register' %}">Signup</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+{%endblock%}
