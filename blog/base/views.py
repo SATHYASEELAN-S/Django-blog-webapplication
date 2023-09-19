@@ -4,7 +4,7 @@ from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from django.contrib.auth import authenticate,logout,login
 from base.form import  BlogForm1,UserForm,userdetailForm
-from base.models import blogpost, userdetail
+from base.models import blogpost, userdetail, Message
 # Create your views here.
 
 def home(request):
@@ -120,12 +120,19 @@ def createblog(request):
 
 def postview(request,pk):
     if request.user.is_authenticated:
-        
+        posts=blogpost.objects.get(id=pk)
+        if request.method=="POST":
+            Message.objects.create(
+                messageuser=request.user,
+                post=posts,
+                comment=request.POST.get('comments')
+            ) 
         view="postview"
+        comments=Message.objects.filter(post=pk)
         posts=blogpost.objects.filter(pk=pk)
         aboutuser=userdetail.objects.filter(aboutuser=pk)
-        
-        context={"posts":posts,"about":aboutuser,"view":view} 
+        aboutuser=userdetail.objects.filter(aboutuser=pk)
+        context={"posts":posts,"about":aboutuser,"view":view,"comments":comments} 
     else:
         return redirect('login')
     return render(request,'base/postview.html',context)

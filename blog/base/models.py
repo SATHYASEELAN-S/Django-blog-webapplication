@@ -21,3 +21,14 @@ class userdetail(models.Model):
 
     def __str__(self):
         return self.about
+    
+ 
+class Message(models.Model):
+    messageuser=models.ForeignKey(User,on_delete=models.CASCADE)
+    post=models.ForeignKey(blogpost,on_delete=models.CASCADE)
+    comment=models.TextField()
+    created=models.DateTimeField(auto_now_add=True)
+    upated=models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.comments
