@@ -141,9 +141,9 @@
             {%endif%}
             <div class="profile-name">{{user.first_name}}</div>
             <div class="profile-username">@{{user}}</div>
-            {%for i in about%}
-            <div class="profile-description">{{i.about}}</div>
-            {%endfor%}
+            
+            <div class="profile-description">{{userabout}}</div>
+
 
             <h5 class="pt-2 text-muted">Posts</h5>
             {%for post in posts%}
