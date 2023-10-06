@@ -1,9 +1,9 @@
 {% extends 'navbar.html' %}
-
-{% block content %}
-    {% block title %}
-        <title>Profile Page</title>
+{% block title1 %}
+Edit profile
     {% endblock %}
+{% block content %}
+    
 
     <style>
         body {
@@ -95,7 +95,7 @@
             <div class="profile-container">
                 <h2 class="mb-4 profile-title">{{ request.user }}</h2>
                 {%for i  in messages%}
-                <label>{{i}}</label>
+                <label>{{i}}</label><br>
                 {%endfor%}
                 <label class="profile-label">Username:</label>
                 {{ form.username }}
@@ -110,7 +110,9 @@
                 {{ form.email }}
 <br>
                 <label class="profile-label">About:</label>
-                {{ aboutform.about }}
+                <textarea name="{{ form.content.name }}" id="{{ form.content.id_for_label }}" class="profile-input" rows="4">{{ aboutform.about }}</textarea>
+      
+                
                 <label class="profile-label">Upload Your Profile Picture:</label>
                 {{ aboutform.profile }}
                 

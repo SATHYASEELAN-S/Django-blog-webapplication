@@ -1,55 +1,17 @@
 {% extends 'main.html' %}
 {% load static %}
 
-{% block navbar %}
-<div>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            {% if request.user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'profile' request.user.id %}">{{ request.user }}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'login' %}">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'register' %}">Signup</a>
-            </li>
-            {% endif %}
-            {% if request.user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'createblog' %}">Create Blog</a>
-            </li> {% endif %}
-            <form class="d-flex" method="post">
-                {%csrf_token%}
-                <input class="form-control me-2" type="search" placeholder="Search Title" name="search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-              </form>
-           
-        </ul>
-    </div>
-</div>
-{% endblock %}
+
 
 {% block title %}
 <title>Blog Home</title>
 {% endblock %}
 
 {% block content1 %}
+
 <style>
     .content {
-        padding: 20px; /* Remove background color */
+        padding: 20px; 
         border-radius: 10px;
         margin: 10px 0;
         display: flex;
@@ -68,7 +30,7 @@
     }
 
     .blog-post:hover {
-        transform: scale(1.02); /* Slightly increase size on hover */
+        transform: scale(1.02);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
@@ -109,6 +71,12 @@
     .read-more-link:hover {
         text-decoration: underline;
     }
+    .user-info{
+        font-weight: bold;
+    }
+    
+    
+    
 </style>
 
 <div class="container">
@@ -124,9 +92,9 @@
         </div>
         <div class="col">
             <div class="pt-5 blog-post-content">
-                <p>@<a href="{% url 'profile' i.author.id %}">{{ i.author }}</a> {{ i.created|date:"M d Y" }} ago</p>
+                <p class="user-info"><a href="{% url 'profile' i.author.id %}">@{{ i.author }}</a> {{ i.created|date:"M d Y" }} ago</p>
                 <h2 class="card-title">{{ i.title }}</h2>
-                <p>{{ i.content }}</p>
+                <p>{{ i }}</p>
                 <a href="{% url 'postview' i.id %}" class="read-more-link">Read more</a>
             </div>
         </div>

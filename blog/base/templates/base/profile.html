@@ -1,11 +1,16 @@
-{% extends 'navbar.html' %} {% block content %} {%block title%}
-<title>Profile Page</title>
+{% extends 'navbar.html' %} 
+
+
+{%block title1%}
+Profile Page
 
 {%endblock%}
+{% block content %} 
+
 {% load static %}
 
 <style>
-    body {
+    .content {
         background-color: #f0f0f0;
         font-family: Arial, sans-serif;
     }
@@ -109,11 +114,11 @@
                 <a href="{%url 'editprofile'%}" class="btn btn-primary btn-edit-profile">Edit Profile</a>
             </div>
         </div>
-        <h3 class="text-muted text-center">Posts</h3>
+        <h3 class="text-muted text-center pt-2">Posts</h3>
         {%for post in posts%}
-        <div class="profile-posts">
+        <div class="profile-posts  ">
             
-                <div class="post">
+                <div class="post bg-light">
                     {%if request.user == post.author%}
                     <a href="{%url 'editpost' post.id  %}" class="btn btn-light btn-edit-profile">Edit</a>
                     <a href="{%url 'delete' post.id %}" class="btn btn-light btn-edit-profile">Delete</a>
@@ -143,8 +148,7 @@
             <div class="profile-username">@{{user}}</div>
             
             <div class="profile-description">{{userabout}}</div>
-
-
+         
             <h5 class="pt-2 text-muted">Posts</h5>
             {%for post in posts%}
             <div class="profile-posts">

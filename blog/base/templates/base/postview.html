@@ -1,5 +1,7 @@
 {% extends 'main.html' %}
-
+{%block title1%}
+    postview
+    {%endblock%}
 {% block content1 %}
 <style>
   .read-more-link {
@@ -41,13 +43,17 @@
     border-top: 1px solid #dee2e6;
     padding-top: 15px;
   }
+  .justify-text {
+    text-align: justify;
+  }
+ 
 </style>
 
 {% if view == "postview" %}
-<main class="container">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card">
+<main class="container ">
+  <div class="row ">
+    <div class="col-md-8 pt-5">
+      <div class="card ">
         <div class="card-header">
           <h3 class="text-muted">Posts</h3>
         </div>
@@ -56,14 +62,15 @@
           <li class="list-group-item">
             <h3 align="justify">{{ post.title }}</h3>
             <img src="{{ post.img.url }}" class="img-fluid pt-2">
-            <p align="justify">{{ post.content }}</p>
+            <!-- <p class="justify-text">{{ post.content|linebreaks }}</p> -->
+            <p class="justify-text">{{ post.content|linebreaksbr }}</p>
             <a href="{% url 'authorpost' post.author.id %}" class="read-more-link text-center">See Other Post</a>
           </li>
         </ul>
         {% endfor %}
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 pt-5">
       <div class="card">
         <div class="card-header">
           Post Comments
@@ -71,7 +78,7 @@
         <div class="card-body">
           {% for c in comments %}
           <div class="comment">
-            <div class="user-info">@{{ c.messageuser }} &nbsp; {{c.created|timesince }} ago</div>
+            <div class="user-info"> <a href="{% url 'profile' c.messageuser.id %}"> @{{ c.messageuser }} </a>&nbsp; {{c.created|timesince }} ago</div>
             <p class="text-start">{{ c.comment }}</p>
           </div>
           {% endfor %}

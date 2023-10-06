@@ -1,18 +1,20 @@
+from django.db.models import Q
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User,auth
 from django.contrib import messages
 from django.contrib.auth import authenticate,logout,login
-from base.form import  BlogForm1,UserForm,userdetailForm
+from base.form import  BlogForm, BlogForm1,UserForm,userdetailForm
 from base.models import blogpost, userdetail, Message
 # Create your views here.
 
 def home(request):
     Post=blogpost.objects.all()
-    
-    if request.method=="POST":
-        search=request.POST["search"]
-        Post=blogpost.objects.filter(title__icontains=search)
+
+    q=request.GET.get('q') if request.GET.get('q') !=None else ''
+    Post = blogpost.objects.filter(Q(title__icontains=q) | Q(content__icontains=q))
+
+   # Post=blogpost.objects.filter(Q(title__icontains=q) or Q(content__icontains=q))
     context={"Post":Post}
     return render(request,'base/home.html',context)
 
@@ -83,12 +85,13 @@ def editprofile(request):
 
 
     if request.method == "POST":
-        if 'about' or 'profile' in request.POST:  # Check if the "about" section is being edited
+        if 'about' or 'profile' in request.POST: 
             aboutform = userdetailForm(request.POST, request.FILES, instance=user_about)
             if aboutform.is_valid():
                 aboutform.save()
             else:
                 messages.error(request, "About form is not valid.")
+                return redirect('editprofile')
        
         form = UserForm(request.POST, instance=request.user)
         if form.is_valid():   
@@ -105,18 +108,21 @@ def editprofile(request):
 
 def createblog(request):
 
+    form=BlogForm1()
+
     if request.method=="POST":
-        title = request.POST.get("title")
-        content = request.POST.get("content")
-        image = request.FILES.get("image")
-        form=blogpost(img=image,content=content,title=title,author=request.user)
-        form.save()
-        return redirect("/")
-    
+        form=BlogForm1(request.POST,request.FILES)
+        if form.is_valid():
+            title =form.cleaned_data['title']
+            content =form.cleaned_data['content']
+            image =form.cleaned_data['img']
+            form=blogpost(img=image,content=content,title=title,author=request.user)
+            form.save()
+            return redirect("/")
         
 
 
-    return render(request,'base/createblog.html')
+    return render(request,'base/createblog.html',{"form":form})
 
 def postview(request,pk):
     if request.user.is_authenticated:
@@ -129,8 +135,7 @@ def postview(request,pk):
             ) 
         view="postview"
         comments=Message.objects.filter(post=pk)
-        posts=blogpost.objects.filter(pk=pk)
-        aboutuser=userdetail.objects.filter(aboutuser=pk)
+        posts=blogpost.objects.filter(id=pk)
         aboutuser=userdetail.objects.filter(aboutuser=pk)
         context={"posts":posts,"about":aboutuser,"view":view,"comments":comments} 
     else:
@@ -173,4 +178,5 @@ def editpost(request,pk):
             messages.error(request,"Form is invalid make sure image file length would be short ")
             return redirect("editpost",pk)
     return render(request,'base/editpost.html',{"form":form})
+
 

@@ -1,12 +1,14 @@
 {% extends 'main.html' %}
 
-{% block title %}
-    <title>Create Blog Post</title>
+{% block title1 %}
+    Edit Blog Post
 {% endblock %}
 
 {% block content1 %}
 
-<div class="container mt-5">
+
+
+<div class="container mt-5  ">
     <h1 class="mb-4">Create a Blog Post</h1>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -20,9 +22,10 @@
 
         <div class="mb-3">
             <label for="{{ form.content.id_for_label }}" class="form-label">Content:</label>
-            {{ form.content }}
+            <textarea name="{{ form.content.name }}" id="{{ form.content.id_for_label }}" class="form-control" rows="4">{{ form.content.value }}</textarea>
         </div>
-
+        
+        
         <div class="mb-3">
             <label for="{{ form.img.id_for_label }}" class="form-label">Image:</label>
             {{ form.img }}

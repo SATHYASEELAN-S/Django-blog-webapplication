@@ -22,7 +22,6 @@ class userdetail(models.Model):
     def __str__(self):
         return self.about
     
- 
 class Message(models.Model):
     messageuser=models.ForeignKey(User,on_delete=models.CASCADE)
     post=models.ForeignKey(blogpost,on_delete=models.CASCADE)
