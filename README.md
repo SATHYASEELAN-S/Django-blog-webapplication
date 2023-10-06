@@ -21,7 +21,7 @@ This is a simple blog web application built using Python Django and Bootstrap 5.
 ## Features
 
 - User authentication and authorization.
-- Create, edit, and delete blog posts.
+- Create, edit, delete blog posts and comment functionality.
 - Responsive design using Bootstrap 5 for both mobile and desktop.
 
 ## Getting Started
@@ -100,6 +100,7 @@ Before you can run this project, you need to set up PostgreSQL and configure it 
 - Register for an account or log in if you have one.
 - Create new blog posts.
 - Edit or delete existing blog posts.
+- comments on individual post
 - Explore the blog and read posts created by others
 <hr>
 
