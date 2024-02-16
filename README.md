@@ -6,7 +6,10 @@
 
 # Django Blog Web Application
 
-This is a simple blog web application built using Python Django and Bootstrap 5. It allows users to create, edit, and view blog posts.
+This is a simple blog web application built using Python Django and Bootstrap 5. It allows users to create, edit, and view blog posts. 
+                          <h1><a href="http://16.16.68.62:8000/">Click Here</a></h1>
+
+
 
 ## Table of Contents
 
